@@ -1,8 +1,18 @@
-FROM iron/ruby:2.2
+FROM alpine:3.3
 MAINTAINER brad@influitive.com
 
-RUN apk --update add ruby-bundler ruby-bigdecimal ruby-irb ruby-json ruby-rake \
-    libstdc++ tzdata postgresql-client \
+# skip installing gem documentation
+RUN mkdir -p /usr/local/etc \
+	&& { \
+		echo 'install: --no-document'; \
+		echo 'update: --no-document'; \
+	} >> /usr/local/etc/gemrc
+
+RUN apk update && apk upgrade \
+    && apk add libxml2 libxslt libevent libffi glib ncurses readline \
+    openssl yaml zlib curl libpq ruby ruby-io-console \
+    ruby-bundler ruby-bigdecimal ruby-irb ruby-json ruby-rake \
+    libstdc++ tzdata postgresql-client ca-certificates \
     && rm -rf /var/cache/apk/*
 
 # Needs to match above Ruby version
@@ -17,19 +27,3 @@ RUN bundle config --global frozen 1 && \
 
 # don't create ".bundle" in all our apps
 ENV BUNDLE_APP_CONFIG $GEM_HOME
-
-ENV APP /usr/src/app
-
-RUN mkdir -p $APP
-WORKDIR $APP
-
-ONBUILD COPY Gemfile* $APP/
-
-ONBUILD RUN apk --update add --virtual build-dependencies build-base ruby-dev openssl-dev \
-    libssl1.0 libxml2-dev libxslt-dev libbz2 libevent-dev libffi-dev glib-dev ncurses-dev readline-dev yaml-dev zlib-dev \
-    postgresql-dev libc-dev linux-headers && \
-    bundle install --without development test --jobs 3 && \
-    apk del build-dependencies && \
-    rm -rf /var/cache/apk/*
-
-ONBUILD COPY . $APP
