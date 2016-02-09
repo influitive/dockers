@@ -1,12 +1,10 @@
 FROM influitive/ruby
 MAINTAINER brad@influitive.com
 
-RUN apk update && apk upgrade
-
-RUN apk add curl git make
-RUN apk add openssl-dev libssl1.0 build-base libxml2-dev libxslt-dev libbz2 libevent-dev libffi-dev glib-dev ncurses-dev readline-dev yaml-dev zlib-dev
-RUN apk add libpq sqlite-dev mariadb-libs postgresql-dev
-RUN apk add ruby-dev ruby ruby-io-console ruby-bundler
+RUN apk add --update curl git make bash
+RUN apk add --update openssl-dev libssl1.0 build-base libxml2-dev libxslt-dev libbz2 libevent-dev libffi-dev glib-dev ncurses-dev readline-dev yaml-dev zlib-dev
+RUN apk add --update libpq sqlite-dev mariadb-libs postgresql-dev
+RUN apk add --update ruby-dev ruby ruby-io-console ruby-bundler
 
 # From
 # https://github.com/mhart/alpine-node/blob/63875c1f173b7f38e7bca1aaaf20042ee71c5263/Dockerfile
