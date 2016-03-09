@@ -8,11 +8,13 @@ WORKDIR $APP
 
 ONBUILD COPY Gemfile* $APP/
 
-ONBUILD RUN apk --update add --virtual build-dependencies build-base ruby-dev openssl-dev \
-    libssl1.0 libxml2-dev libxslt-dev libbz2 libevent-dev libffi-dev glib-dev ncurses-dev readline-dev yaml-dev zlib-dev \
-    postgresql-dev libc-dev linux-headers && \
-    bundle install --without development test --jobs 5 && \
-    apk del build-dependencies && \
-    rm -rf /var/cache/apk/*
+ONBUILD RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc make \
+    libpq-dev libglib2.0-dev build-essential patch zlib1g-dev liblzma-dev \
+    && bundle install --without development test --jobs 5 \
+      && apt-get purge -y --auto-remove \
+      gcc make \
+      libpq-dev libglib2.0-dev build-essential patch zlib1g-dev liblzma-dev \
+		&& rm -rf /var/lib/apt/lists/*
 
 ONBUILD COPY . $APP
