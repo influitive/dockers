@@ -9,15 +9,19 @@
 
   `docker-machine create -d virtualbox default`
 
-3. (optional) Automatically populate the docker IP at the beginning of your terminal session:
+3. Enable SSHFS for volume mounting, this is much faster and better with keeping your files in sync between guest and host:
+
+  https://github.com/Atamos/docker-machine-sshfs
+
+4. (optional) Automatically populate the docker IP at the beginning of your terminal session:
 
   `echo 'eval "$(docker-machine env default)"' >> ~/.bash_profile`
 
-4. (optional) Install aliases to make your life much easier:
+5. (optional) Install aliases to make your life much easier:
 
   ```bash
   # insert the following into your ~/.bash_aliases file
-
+  # feel free to add your own and consider contributing it
   alias dc='docker-compose '
   alias dc-run='dc run --rm '
 
