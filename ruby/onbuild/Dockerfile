@@ -9,11 +9,11 @@ WORKDIR $APP
 ONBUILD COPY Gemfile* $APP/
 
 ONBUILD RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc make \
+    gcc make git \
     libpq-dev libglib2.0-dev build-essential patch zlib1g-dev liblzma-dev \
     && bundle install --without development test --jobs 5 \
       && apt-get purge -y --auto-remove \
-      gcc make \
+      gcc make git \
       libpq-dev libglib2.0-dev build-essential patch zlib1g-dev liblzma-dev \
 		&& rm -rf /var/lib/apt/lists/*
 
