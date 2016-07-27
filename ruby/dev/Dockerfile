@@ -70,6 +70,6 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
   && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
 
-RUN npm install -g phantomjs-prebuilt
+RUN npm set progress=false && npm install -g phantomjs-prebuilt
 
 RUN bundle config build.nokogiri --use-system-libraries
