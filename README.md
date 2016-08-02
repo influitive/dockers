@@ -10,11 +10,36 @@
    allows the docker containers to communicate with the host machine on the
    specified ip address.
 
-   ```bash
-   sudo ifconfig lo0 alias 172.16.123.1
+   Create the following file at `/usr/local/bin/login-script`:
+   ```
+   #!/bin/sh
+
+   # add a local loopback alias for docker
+   ifconfig lo0 alias 172.16.123.1
    ```
 
-3. You're done! consider installing the docker-compose aliases to make your life
+   Then run the following commands:
+   ```
+   sudo chmod +x /usr/local/bin/login-script
+   sudo defaults write com.apple.loginwindow LoginHook /usr/local/bin/login-script
+   ```
+
+3. Modify the RabbitMQ configuration file to allow connections from any host (i.e. docker containers)
+
+  ```
+  # in /usr/local/etc/rabbitmq/rabbitmq-env.conf find and modify the following line
+  NODE_IP_ADDRESS=0.0.0.0
+  ```
+
+  And also allow non-localhost connections for the guest user
+
+  ```
+  sudo sh -c 'echo "[{rabbit, [{loopback_users, []}]}]." > /usr/local/etc/rabbitmq/rabbitmq.config'
+  ```
+
+3. Restart your computer
+
+4. You're done! consider installing the docker-compose aliases to make your life
    much easier when working with docker.
 
    Your docker containers will be available through `localhost`
