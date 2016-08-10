@@ -15,7 +15,7 @@
    #!/bin/sh
 
    # add a local loopback alias for docker
-   ifconfig lo0 alias 172.16.123.1
+   ifconfig lo0 alias 10.0.2.2
    ```
 
    Then run the following commands:
