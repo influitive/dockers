@@ -24,7 +24,7 @@
    sudo defaults write com.apple.loginwindow LoginHook /usr/local/bin/login-script
    ```
 
-3. Modify the RabbitMQ configuration file to allow connections from any host (i.e. docker containers)
+3. Modify the RabbitMQ/Mongo configuration files to allow connections from any host (i.e. docker containers)
 
   ```
   # in /usr/local/etc/rabbitmq/rabbitmq-env.conf find and modify the following line
@@ -37,6 +37,10 @@
   sudo sh -c 'echo "[{rabbit, [{loopback_users, []}]}]." > /usr/local/etc/rabbitmq/rabbitmq.config'
   ```
 
+  ```
+  sed -i .bak "s/bindIp: .*/bindIp: 0.0.0.0/" /usr/local/etc/mongod.conf
+  ```
+  
 3. Restart your computer
 
 4. You're done! consider installing the docker-compose aliases to make your life
