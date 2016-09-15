@@ -48,25 +48,6 @@
 
    Your docker containers will be available through `localhost`
 
-## Getting Started with Docker (OSX w/ VirtualBox)
-
-NOTE: this is the old way of developing with docker - you should use the current
-approach (xhyve) unless there is a good reason.
-
-1. Download and install the Docker toolbox from https://www.docker.com/products/docker-toolbox
-
-2. Start a docker machine with VirtualBox:
-
-  `docker-machine create -d virtualbox default`
-
-3. Enable SSHFS for volume mounting, this is much faster and better with keeping your files in sync between guest and host:
-
-  https://github.com/Atamos/docker-machine-sshfs
-
-4. (optional) Automatically populate the docker IP at the beginning of your terminal session:
-
-  `echo 'eval "$(docker-machine env default)"' >> ~/.bash_profile`
-
 ## Install aliases to make your life much easier
 
 Insert the following into your `~/.bash_aliases` file feel free to add your own
