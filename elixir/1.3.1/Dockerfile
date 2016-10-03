@@ -1,11 +1,5 @@
-FROM msaraiva/elixir:1.3.1
+FROM elixir:1.3.3
 
-RUN apk add --update erlang-inets \
-                     erlang-ssl \
-                     erlang-crypto \
-                     erlang-public-key \
-                     erlang-asn1 \
-                     postgresql-client \
-                     postgresql
+RUN apt-get update && apt-get -y install postgresql-client
 
 RUN mix local.hex --force
