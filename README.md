@@ -63,3 +63,24 @@ alias web-rails='web-bundle exec rails '
 alias web-rake='web-bundle exec rake '
 alias web-rspec='web-bundle exec rspec '
 ```
+
+## Building new images
+
+Depending on the image you're updating, you may have 1 or 2 steps to go through. If you're modifying a `base` image, that is, an image that *other* images use, you'll need to re-publish the base image AND images that use that base image. If you're just modifying an end-user image, you can just update and publish that one.
+
+#### Modifying a base image
+
+1. Commit and PR your changes
+2. in the base image directory (eg `/ruby`) run `docker build -t influitive/ruby .`
+3. Push that base image using `docker push influitive/ruby`.
+
+This will push up `influitive/ruby:latest`.
+
+Note that other images that have already been built with the *previous* `influitive/ruby` image as their `FROM` will now need to be updated also (if they want those changes). To do this,
+
+#### Modifying an image that *uses* a base image
+
+1. go into the appropriate folder of the image you want to modify (eg, `onbuild` or `dev`)
+2. rebuild the tagged image using the new base image `docker build -t influitive/ruby:onbuild .`
+3. re-tag any other matching tags (such as the ruby version tag) `docker build -t influitive/ruby:onbuild-2.3`
+4. push any tagged images up using `docker push influitive/ruby:onbuild-2.3` for each tagged image
