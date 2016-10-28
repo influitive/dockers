@@ -1,4 +1,3 @@
-
 # Docker README
 
 
@@ -35,12 +34,12 @@
 
   ```
   sudo sh -c 'echo "[{rabbit, [{loopback_users, []}]}]." > /usr/local/etc/rabbitmq/rabbitmq.config'
+  sed -i .bak "s/bindIp: .*/bindIp: 0.0.0.0/" /usr/local/etc/mongod.conf
+  sed -i .bak "s/^bind 127.0.0.1$/bind 127.0.0.1 10.0.2.2/" /usr/local/etc/redis.conf
+  grep -q 10.0.2.2 /usr/local/var/postgres/pg_hba.conf || echo 'host all all 10.0.2.2/32 trust' >> /usr/local/var/postgres/pg_hba.conf
+  sed -i .bak "s/^listen_addresses = 'localhost'/list_addresses = 'localhost,10.0.2.2'/" /usr/local/var/postgres/postgresql.conf
   ```
 
-  ```
-  sed -i .bak "s/bindIp: .*/bindIp: 0.0.0.0/" /usr/local/etc/mongod.conf
-  ```
-  
 3. Restart your computer
 
 4. You're done! consider installing the docker-compose aliases to make your life
