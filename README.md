@@ -39,10 +39,11 @@
   grep -q 10.0.2.2 /usr/local/var/postgres/pg_hba.conf || echo 'host all all 10.0.2.2/32 trust' >> /usr/local/var/postgres/pg_hba.conf
   sed -E -i .bak "s/^#?listen_addresses = 'localhost'/listen_addresses = 'localhost,10.0.2.2'/" /usr/local/var/postgres/postgresql.conf
   ```
+Also modify your memcached plist at `/usr/local/opt/memcached/homebrew.mxcl.memcached.plist` to change `localhost` to `localhost,10.0.2.2`
 
-3. Restart your computer
+4. Restart your computer
 
-4. You're done! consider installing the docker-compose aliases to make your life
+5. You're done! consider installing the docker-compose aliases to make your life
    much easier when working with docker.
 
    Your docker containers will be available through `localhost`
