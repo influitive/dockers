@@ -37,6 +37,7 @@ COPY prometheus.yml /etc/prometheus/prometheus.yml
 
 # add the runner script to the image
 COPY run.sh /run.sh
+RUN chmod +x /run.sh
 
 EXPOSE 9090
 
