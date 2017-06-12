@@ -1,6 +1,6 @@
 FROM docker:1.12.1
 
-RUN apk add bash git py-pip
+RUN apk add --update bash git py-pip
 
 RUN pip install docker-compose
 
