@@ -1,9 +1,19 @@
 global:
-  scrape_interval:     15s # By default, scrape targets every 15 seconds.
-
-  # Attach these labels to any time series or alerts when communicating with
-  # external systems (federation, remote storage, Alertmanager).
-  external_labels:
-    monitor: 'generic'
+  scrape_interval: 15s
 
 scrape_configs:
+  - job_name: 'marathon'
+    scrape_interval: '5s'
+    marathon_sd_configs:
+      - servers: ['http://marathon.mesos:8080']
+    relabel_configs:
+      # disable all targets which do not have a METRICS_PATH on them
+      - source_labels: [__meta_marathon_port_mapping_label_METRICS_PATH]
+        action: keep
+        regex: (.+)
+
+      # assign the value of METRICS_PATH to the prometheus target's metrics path
+      - source_labels: [__meta_marathon_port_mapping_label_METRICS_PATH]
+        action: replace
+        target_label: __metrics_path__
+        regex: (.+)
