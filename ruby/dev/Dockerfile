@@ -73,3 +73,12 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
 RUN npm set progress=false && npm install -g phantomjs-prebuilt
 
 RUN bundle config build.nokogiri --use-system-libraries
+
+RUN curl -fLsS \
+         --retry 20 \
+         -Y 100000 \
+         -y 60 \
+         https://raw.githubusercontent.com/vishnubob/wait-for-it/8b4051d5f30f38f3654bf63a5396c50091d46580/wait-for-it.sh \
+         -o /usr/local/bin/wait-for-it && \
+    chmod +x /usr/local/bin/wait-for-it
+
