@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       gcc \
       git \
       imagemagick \
+      inotify-tools \ 
       libbz2-dev \
       libc6-dev \
       libcurl4-openssl-dev \
@@ -38,6 +39,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       libyaml-dev \
       make \
       patch \
+      rsync \
       xz-utils \
       zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
