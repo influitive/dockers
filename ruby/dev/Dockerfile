@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       gcc \
       git \
       imagemagick \
-      inotify-tools \ 
+      inotify-tools \
       libbz2-dev \
       libc6-dev \
       libcurl4-openssl-dev \
@@ -63,7 +63,7 @@ RUN set -ex \
   done
 
 ENV NPM_CONFIG_LOGLEVEL info
-ENV NODE_VERSION 5.9.1
+ENV NODE_VERSION 5.11.1
 
 RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
   && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
@@ -83,4 +83,3 @@ RUN curl -fLsS \
          https://raw.githubusercontent.com/vishnubob/wait-for-it/8b4051d5f30f38f3654bf63a5396c50091d46580/wait-for-it.sh \
          -o /usr/local/bin/wait-for-it && \
     chmod +x /usr/local/bin/wait-for-it
-
