@@ -1,0 +1,19 @@
+version: 0.1
+
+log:
+  accesslog:
+    disabled: true
+
+storage:
+  delete:
+    enabled: false
+  maintenance:
+    uploadpurging:
+      enabled: false
+    readonly:
+      enabled: true
+
+http:
+  addr: :5000
+  headers:
+    X-Content-Type-Options: [nosniff]
