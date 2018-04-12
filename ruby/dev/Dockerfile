@@ -64,7 +64,7 @@ RUN set -ex \
     gpg --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ; \
   done
 
-ENV NODE_VERSION 6.9.2
+ENV NODE_VERSION 9.11.1
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
@@ -86,8 +86,8 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
 
 RUN npm set progress=false \
   && npm install -g npm3 && npm3 -g uninstall npm \
-  && npm3 install -g npm@4 \
-  && npm install -g phantomjs-prebuilt
+  && npm3 install -g npm@5.8.0 \
+  && npm install -g phantomjs-prebuilt --unsafe-perm
 
 ENV YARN_VERSION 1.5.1
 
