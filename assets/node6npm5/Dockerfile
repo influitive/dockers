@@ -1,47 +1,12 @@
-FROM influitive/ruby
-MAINTAINER brad@influitive.com
+FROM python:3.5.2-slim
+
+RUN pip install awscli
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-      autoconf \
-      automake \
-      bash \
-      build-essential \
       bzip2 \
-      curl \
-      file \
-      g++ \
-      gcc \
       git \
-      imagemagick \
-      inotify-tools \
-      libbz2-dev \
-      libc6-dev \
-      libcurl4-openssl-dev \
-      libevent-dev \
-      libffi-dev \
-      libgeoip-dev \
-      libglib2.0-dev \
-      libjpeg-dev \
-      liblzma-dev \
-      libmagickcore-dev \
-      libmagickwand-dev \
-      libmysqlclient-dev \
-      libncurses-dev \
-      libpng-dev \
-      libpq-dev \
-      libreadline-dev \
-      libsqlite3-dev \
-      libssl-dev \
-      libtool \
-      libwebp-dev \
-      libxml2-dev \
-      libxslt-dev \
-      libyaml-dev \
-      make \
-      patch \
-      rsync \
+      curl \
       xz-utils \
-      zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # CA CERT fix for curl over ssl
@@ -63,7 +28,7 @@ RUN set -ex \
   done
 
 ENV NPM_CONFIG_LOGLEVEL info
-ENV NODE_VERSION 5.11.1
+ENV NODE_VERSION 6.14.1
 
 RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
   && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
@@ -72,14 +37,8 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
   && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
 
-RUN npm set progress=false && npm install -g phantomjs-prebuilt
+RUN npm set progress=false \
+  && npm install -g npm3 && npm3 -g uninstall npm \
+  && npm3 install -g npm@5.8.0 \
+  && npm install -g phantomjs-prebuilt --unsafe-perm
 
-RUN bundle config build.nokogiri --use-system-libraries
-
-RUN curl -fLsS \
-         --retry 20 \
-         -Y 100000 \
-         -y 60 \
-         https://raw.githubusercontent.com/vishnubob/wait-for-it/8b4051d5f30f38f3654bf63a5396c50091d46580/wait-for-it.sh \
-         -o /usr/local/bin/wait-for-it && \
-    chmod +x /usr/local/bin/wait-for-it
