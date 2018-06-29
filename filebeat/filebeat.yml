@@ -1,0 +1,22 @@
+filebeat.name: ${HOST_IP}
+
+filebeat.inputs:
+- type: log
+  paths:
+    - /log/haproxy.log
+  fields:
+    document_type: haproxy
+  fields_under_root: true
+
+# metricbeat.modules:
+# - module: haproxy
+#   metricsets: ["info", "stat"]
+#   period: 10s
+#   hosts: ["tcp://${HOST_IP}:1936"]
+#   enabled: true
+
+processors:
+- add_cloud_metadata:
+
+output.logstash:
+  hosts: ["${LOGSTASH:logs.infl-util.internal:5045}"]
