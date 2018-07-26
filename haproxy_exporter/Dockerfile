@@ -1,1 +1,0 @@
-FROM quay.io/prometheus/haproxy-exporter:v0.9.0

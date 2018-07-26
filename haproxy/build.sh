@@ -1,7 +1,5 @@
 :
-IMAGE=$(basename ${PWD})
-DOCKER_REPO=influitive
-TAG=`date +%s`
+. ../.env.sh
 
 docker build -t ${DOCKER_REPO}/${IMAGE} . \
  && docker tag ${DOCKER_REPO}/${IMAGE} influitive/${IMAGE}:${TAG} \
