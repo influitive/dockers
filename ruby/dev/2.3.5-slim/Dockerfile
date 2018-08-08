@@ -1,4 +1,4 @@
-FROM influitive/ruby
+FROM influitive/ruby:2.3.5
 MAINTAINER brad@influitive.com
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
