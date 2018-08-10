@@ -44,6 +44,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
+RUN bundle config --global --delete frozen
+
 # CA CERT fix for curl over ssl
 RUN mkdir -p /etc/ssl/certs/ && update-ca-certificates --fresh
 
