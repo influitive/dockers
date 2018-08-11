@@ -1,6 +1,6 @@
 FROM influitive/ruby:2.5.1-alpine
 
-RUN apk add --update alpine-sdk postgresql-dev
+RUN apk add --update alpine-sdk postgresql-dev file imagemagick
 
 # --- install node 6.14.3 ------------------------------------------------------
 
